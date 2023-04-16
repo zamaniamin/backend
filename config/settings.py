@@ -119,11 +119,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'open_ecommerce',
         'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST': 'db',  # used in docker
-        # 'HOST': 'localhost', # used in local
+        # 'HOST': 'db',  # used in docker
+        'HOST': 'localhost',  # used in local
         'PORT': 5432,
     }
 }

@@ -28,7 +28,7 @@ urlpatterns = [
     # `DEFAULT_AUTHENTICATION_CLASSES` config in setting file.
     path('api-auth/', include('rest_framework.urls')),
 
-    # path('products/', include('products.urls')),
+    path('catalog/', include('catalog.urls')),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),  # need to generate swagger-ui
     path("", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     # path("api/schema/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc", ),
