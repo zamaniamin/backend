@@ -2,23 +2,28 @@ from rest_framework import serializers
 from .models import Variant, VariantItem
 
 
-# class VariantItemSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = VariantItem
-#         fields = '__all__'
-
-
 class VariantSerializer(serializers.ModelSerializer):
-    # variant_items = VariantItemSerializer(many=True)
-    #
     class Meta:
         model = Variant
         fields = '__all__'
-    #     fields = ('id', 'product', 'name', 'variant_items')
-    #
-    # def create(self, validated_data):
-    #     variant_items_data = validated_data.pop('variant_items')
-    #     variant = Variant.objects.create(**validated_data)
-    #     for item in variant_items_data:
-    #         VariantItem.objects.create(variant=variant, **item)
-    #     return variant
+
+
+class VariantItemSerializer(serializers.ModelSerializer):
+    item_name = serializers.CharField()
+    variant_id = serializers.PrimaryKeyRelatedField(queryset=Variant.objects.all(), source='variant')
+
+    class Meta:
+        model = VariantItem
+        fields = ['id', 'item_name', 'variant_id']
+
+
+class VariantItemUpdateSerializer(serializers.ModelSerializer):
+    item_name = serializers.CharField()
+    variant_id = serializers.PrimaryKeyRelatedField(queryset=Variant.objects.all(), source='variant', required=False)
+
+    class Meta:
+        model = VariantItem
+        fields = ['id', 'item_name', 'variant_id']
+
+        # you can remove the variant field from the PUT request body, and it will not be required during updates
+        read_only_fields = ['variant']
